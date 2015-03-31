@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using Helios.ETW;
 using Helios.MultiNodeTests.TestKit;
+using Helios.Tracing;
 
 namespace Helios.Benchmark.TCPThroughput
 {
@@ -10,6 +12,7 @@ namespace Helios.Benchmark.TCPThroughput
     {
         static void Main(string[] args)
         {
+            HeliosTrace.SetWriter(HeliosEtwTraceWriter.Instance);
             var harness = new TcpHarness();
             harness.SetUp();
             Console.WriteLine("Helios TCP Client --> Server Reliability benchmark");
@@ -24,7 +27,6 @@ namespace Helios.Benchmark.TCPThroughput
             sw.Stop();
             Console.WriteLine("Trips completed in {0} ms", sw.ElapsedMilliseconds);
             harness.CleanUp();
-            Console.ReadLine();
         }
     }
 

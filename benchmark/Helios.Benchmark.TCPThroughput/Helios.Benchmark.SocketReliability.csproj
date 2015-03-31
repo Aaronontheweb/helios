@@ -53,7 +53,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="_EventRegisterUsersGuide.docx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Helios.ETW\Helios.ETW.csproj">
