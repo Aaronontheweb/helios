@@ -59,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Util", "Util", "{36601D0B-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EC2FFAF8-7B19-4F04-A6CA-01299E39F555}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helios.Benchmark.SocketReliability", "benchmark\Helios.Benchmark.TCPThroughput\Helios.Benchmark.SocketReliability.csproj", "{A3302ED7-83D5-480E-8A7E-2927C7FC7665}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{F11EC8AF-6769-4469-B90A-BBD7BBD095BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F11EC8AF-6769-4469-B90A-BBD7BBD095BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F11EC8AF-6769-4469-B90A-BBD7BBD095BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3302ED7-83D5-480E-8A7E-2927C7FC7665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3302ED7-83D5-480E-8A7E-2927C7FC7665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3302ED7-83D5-480E-8A7E-2927C7FC7665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3302ED7-83D5-480E-8A7E-2927C7FC7665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,5 +154,6 @@ Global
 		{F11EC8AF-6769-4469-B90A-BBD7BBD095BA} = {36601D0B-DAA1-4119-AE4E-330BD70150AB}
 		{36601D0B-DAA1-4119-AE4E-330BD70150AB} = {10C4A82C-956F-4A75-A903-2F7153AB323C}
 		{EC2FFAF8-7B19-4F04-A6CA-01299E39F555} = {10C4A82C-956F-4A75-A903-2F7153AB323C}
+		{A3302ED7-83D5-480E-8A7E-2927C7FC7665} = {7B7D8B0C-110F-4120-85A9-D0F9A9A97448}
 	EndGlobalSection
 EndGlobal
