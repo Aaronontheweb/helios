@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -13,7 +12,6 @@ using Helios.Serialization;
 using Helios.Topology;
 using Helios.Tracing;
 using Helios.Util;
-using Helios.Util.Collections;
 using Helios.Util.TimedOps;
 
 namespace Helios.Net.Connections
