@@ -156,6 +156,7 @@ namespace Helios.Net.Connections
                 {
                     var networkData = NetworkData.Create(receiveState.RemoteHost, message);
                     InvokeReceiveIfNotNull(networkData);
+					HeliosTrace.Instance.TcpClientReceiveSuccess();
                 }
 
                 //reuse the buffer
@@ -170,7 +171,7 @@ namespace Helios.Net.Connections
                     receiveState.Socket.BeginReceive(receiveState.RawBuffer, 0, receiveState.RawBuffer.Length,
                         SocketFlags.None, ReceiveCallback, receiveState);
                 }
-                HeliosTrace.Instance.TcpClientReceiveSuccess();
+                
             }
             catch (SocketException ex) //typically means that the socket is now closed
             {
@@ -241,6 +242,7 @@ namespace Helios.Net.Connections
 
         public void Send(NetworkData data)
         {
+			HeliosTrace.Instance.TcpClientSendQueued ();
             HasUnsentMessages = true;
             SendQueue.Enqueue(data);
             Schedule();

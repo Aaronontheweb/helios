@@ -26,6 +26,7 @@ namespace Helios.Benchmark.TCPThroughput
             sw.Stop();
             Console.WriteLine("Trips completed in {0} ms", sw.ElapsedMilliseconds);
             harness.CleanUp();
+			var counters = HeliosCounterTraceWriter.Instance.Counter;
             Console.WriteLine("Checking counters");
         }
     }

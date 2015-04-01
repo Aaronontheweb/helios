@@ -55,6 +55,7 @@ namespace Helios.Reactor.Response
 
         public override void Send(NetworkData data)
         {
+			HeliosTrace.Instance.TcpInboundSendQueued ();
             HasUnsentMessages = true;
             SendQueue.Enqueue(data);
             Schedule();
@@ -68,7 +69,7 @@ namespace Helios.Reactor.Response
             //only schedule if we're idle
             if (Interlocked.Exchange(ref IsIdle, SendBufferProcessingStatus.Busy) == SendBufferProcessingStatus.Idle)
             {
-                EventLoop.Execute(Run);
+				Run();
             }
         }
 
@@ -89,7 +90,7 @@ namespace Helios.Reactor.Response
             NetworkData message;
             while (SendQueue.TryDequeue(out message))
             {
-                SendInternal(message.Buffer, 0, message.Length, message.RemoteHost);
+				EventLoop.Execute(() => SendInternal(message.Buffer, 0, message.Length, message.RemoteHost));
                 left--;
                 if (WasDisposed)
                     return;
@@ -102,8 +103,7 @@ namespace Helios.Reactor.Response
             }
 
             //there are still unsent messages that need to be processed
-            if (SendQueue.Count > 0)
-                HasUnsentMessages = true;
+			HasUnsentMessages = !SendQueue.IsEmpty;
 
             if (HasUnsentMessages)
                 EventLoop.Execute(Run);
