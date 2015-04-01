@@ -59,7 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Util", "Util", "{36601D0B-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EC2FFAF8-7B19-4F04-A6CA-01299E39F555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helios.Benchmark.SocketReliability", "benchmark\Helios.Benchmark.TCPThroughput\Helios.Benchmark.SocketReliability.csproj", "{A3302ED7-83D5-480E-8A7E-2927C7FC7665}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helios.Benchmark.SocketReliability", "benchmark\Helios.Benchmark.SocketReliability\Helios.Benchmark.SocketReliability.csproj", "{A3302ED7-83D5-480E-8A7E-2927C7FC7665}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
