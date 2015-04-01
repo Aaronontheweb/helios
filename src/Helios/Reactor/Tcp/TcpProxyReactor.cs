@@ -188,8 +188,8 @@ namespace Helios.Reactor.Tcp
                         bytesSent += clientSocket.Socket.Send(bytesToSend, bytesSent, bytesToSend.Length - bytesSent,
                             SocketFlags.None);
                     }
-                    HeliosTrace.Instance.TcpClientSend(bytesSent);
-                    HeliosTrace.Instance.TcpClientSendSuccess();
+                    HeliosTrace.Instance.TcpInboundClientSend(bytesSent);
+                    HeliosTrace.Instance.TcpInboundSendSuccess();
                 }
             }
             catch (SocketException ex)

@@ -27,6 +27,7 @@ namespace Helios.Benchmark.TCPThroughput
             sw.Stop();
             Console.WriteLine("Trips completed in {0} ms", sw.ElapsedMilliseconds);
             harness.CleanUp();
+            Console.WriteLine("Checking counters");
         }
     }
 
@@ -52,6 +53,11 @@ namespace Helios.Benchmark.TCPThroughput
             StartClient();
             var messageLength = 200;
             var sends = BufferSize;
+
+            Console.WriteLine("Initial queue sizes...");
+            Console.WriteLine("Client Sends. Expected: {0} / Actual: {1}", 0, ClientSendBuffer.Count);
+            Console.WriteLine("Client Receives. Expected: {0} / Actual: {1}", 0, ClientReceiveBuffer.Count);
+            Console.WriteLine("Server Receives. Expected: {0} / Acutal: {1}", 0, ServerReceiveBuffer.Count);
 
             //act
             for (var i = 0; i < sends; i++)

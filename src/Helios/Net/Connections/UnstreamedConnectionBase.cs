@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
@@ -25,7 +26,7 @@ namespace Helios.Net.Connections
 
     public abstract class UnstreamedConnectionBase : IConnection
     {
-        protected ConcurrentCircularBuffer<NetworkData> SendQueue = new ConcurrentCircularBuffer<NetworkData>(100, Int32.MaxValue);
+        protected ConcurrentQueue<NetworkData> SendQueue = new ConcurrentQueue<NetworkData>();
         protected int Throughput = 10;
         protected int IsIdle = SendBufferProcessingStatus.Idle; //1 for busy, 0 for idle
         protected volatile bool HasUnsentMessages;
@@ -279,7 +280,7 @@ namespace Helios.Net.Connections
             var left = Throughput;
 
             NetworkData message;
-            while (SendQueue.TryTake(out message))
+            while (SendQueue.TryDequeue(out message))
             {
                 SendInternal(message.Buffer, 0, message.Length, message.RemoteHost);
                 left--;
