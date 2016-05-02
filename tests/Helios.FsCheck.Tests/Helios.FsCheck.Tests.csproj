@@ -92,6 +92,7 @@
     <Compile Include="Channels\ChannelPipelineConstructionSpecs.cs" />
     <Compile Include="Channels\Sockets\ConcurrentTcpServerSocketModel.cs" />
     <Compile Include="Channels\Sockets\ConnectionState.cs" />
+    <Compile Include="Channels\Sockets\ImmutableTcpServerSocketModel.cs" />
     <Compile Include="Channels\Sockets\TcpClientSocketModel.cs" />
     <Compile Include="Channels\Sockets\ITcpServerSocketModel.cs" />
     <Compile Include="Channels\Sockets\TcpClientSocketStateHandler.cs" />

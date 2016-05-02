@@ -15,6 +15,7 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
 
         IReadOnlyList<int> WrittenMessages { get; }
 
+        ITcpServerSocketModel SetAddress(IPEndPoint boundAddress);
         ITcpServerSocketModel AddClient(IPEndPoint endpoint);
         ITcpServerSocketModel RemoveClient(IPEndPoint endpoint);
         ITcpServerSocketModel ClearMessages();

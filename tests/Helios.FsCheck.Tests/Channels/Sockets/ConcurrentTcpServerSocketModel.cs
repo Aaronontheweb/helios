@@ -10,14 +10,14 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
     /// Shared implementation of <see cref="ITcpServerSocketModel"/> that is used across multiple child
     /// <see cref="TcpSocketChannel"/> instances spawned by a single <see cref="TcpServerSocketChannel"/>
     /// </summary>
-    public class ConcurrentTcpServerSocketModel : ITcpServerSocketModel
+    public sealed class ConcurrentTcpServerSocketModel : ITcpServerSocketModel
     {
         public ConcurrentTcpServerSocketModel(IPEndPoint boundAddress)
         {
             BoundAddress = boundAddress;
         }
 
-        public IPEndPoint BoundAddress { get; }
+        public IPEndPoint BoundAddress { get; private set; }
 
         private readonly List<IPEndPoint> _clients = new List<IPEndPoint>();
         public IReadOnlyList<IPEndPoint> Clients => _clients;
@@ -27,6 +27,12 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
 
         private ConcurrentBag<int> _writtenMessages = new ConcurrentBag<int>();
         public IReadOnlyList<int> WrittenMessages => _writtenMessages.ToList();
+        public ITcpServerSocketModel SetAddress(IPEndPoint boundAddress)
+        {
+            BoundAddress = boundAddress;
+            return this;
+        }
+
         public ITcpServerSocketModel AddClient(IPEndPoint endpoint)
         {
             lock (_clients)
