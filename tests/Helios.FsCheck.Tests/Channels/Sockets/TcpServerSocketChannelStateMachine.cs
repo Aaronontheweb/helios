@@ -23,7 +23,7 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
     {
         public override Gen<Operation<ITcpServerSocketModel, ITcpServerSocketModel>> Next(ITcpServerSocketModel obj0)
         {
-            if (obj0.Self == null)
+            if (obj0.BoundAddress == null)
             {
                 // generate a bind operation first
                 return Bind.Generator();
@@ -171,6 +171,7 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
 
                 var serveChannel = serverBindTask.Result;
                 // perform a self-referential set, so we get a side effect back onto the model
+                actual.SetSelf(serveChannel);
                 model = model.SetSelf(serveChannel);
                 return
                     model.BoundAddress.Equals(actual.BoundAddress)
@@ -185,10 +186,10 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
                 while (!IsPortAvailable(portNumber))
                 {
                     portNumber = ThreadLocalRandom.Current.Next(50000, 60000);
-                    if(--tries < 0)
+                    if (--tries < 0)
                         throw new InvalidOperationException($"Attempted to find an open port and failed after 10 tries.");
                 }
-                
+
                 BoundEndpoint = new IPEndPoint(TEST_ADDRESS.Address, portNumber);
 
                 // this one is weird - all of the work has to happen inside the check stage as we need access to the model.

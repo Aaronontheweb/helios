@@ -43,6 +43,7 @@ namespace Helios.FsCheck.Tests.Channels.Sockets.Models
         public ITcpServerSocketModel SetSelf(IChannel self)
         {
             Self = self;
+            BoundAddress = (IPEndPoint)Self.LocalAddress;
             return this;
         }
 
