@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Helios.Channels;
 
-namespace Helios.FsCheck.Tests.Channels.Sockets
+namespace Helios.FsCheck.Tests.Channels.Sockets.Models
 {
     public class TcpServerSocketStateHandler : ChannelHandlerAdapter
     {
@@ -15,12 +15,12 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
 
         public override void ChannelActive(IChannelHandlerContext context)
         {
-            State = State.AddClient((IPEndPoint) context.Channel.RemoteAddress);
+            State = State.AddLocalChannel(context.Channel).AddClient((IPEndPoint) context.Channel.RemoteAddress);
         }
 
         public override void ChannelInactive(IChannelHandlerContext context)
         {
-            State = State.RemoveClient((IPEndPoint) context.Channel.RemoteAddress);
+            State = State.RemoveLocalChannel(context.Channel).RemoveClient((IPEndPoint) context.Channel.RemoteAddress);
         }
 
         public override Task WriteAsync(IChannelHandlerContext context, object message)

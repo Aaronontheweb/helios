@@ -1,4 +1,4 @@
-﻿namespace Helios.FsCheck.Tests.Channels.Sockets
+﻿namespace Helios.FsCheck.Tests.Channels.Sockets.Models
 {
     public enum ConnectionState
     {

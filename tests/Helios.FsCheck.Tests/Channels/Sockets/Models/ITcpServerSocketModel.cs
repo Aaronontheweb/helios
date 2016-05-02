@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Helios.Util;
+using Helios.Channels;
 
-namespace Helios.FsCheck.Tests.Channels.Sockets
+namespace Helios.FsCheck.Tests.Channels.Sockets.Models
 {
     public interface ITcpServerSocketModel
     {
         IPEndPoint BoundAddress { get; }
-        IReadOnlyList<IPEndPoint> Clients { get; }
+        IChannel Self { get; }
+        IReadOnlyList<IChannel> LocalChannels { get; }
+        IReadOnlyList<IPEndPoint> RemoteClients { get; }
         IReadOnlyList<int> LastReceivedMessages { get; }
 
         IReadOnlyList<int> WrittenMessages { get; }
 
-        ITcpServerSocketModel SetAddress(IPEndPoint boundAddress);
+        ITcpServerSocketModel SetSelf(IChannel self);
+        ITcpServerSocketModel AddLocalChannel(IChannel channel);
+        ITcpServerSocketModel RemoveLocalChannel(IChannel channel);
         ITcpServerSocketModel AddClient(IPEndPoint endpoint);
         ITcpServerSocketModel RemoveClient(IPEndPoint endpoint);
         ITcpServerSocketModel ClearMessages();

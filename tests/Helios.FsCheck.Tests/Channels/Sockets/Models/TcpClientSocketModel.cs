@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using Helios.Channels;
 
-namespace Helios.FsCheck.Tests.Channels.Sockets
+namespace Helios.FsCheck.Tests.Channels.Sockets.Models
 {
     public class TcpClientSocketModel
     {

@@ -48,7 +48,7 @@ namespace Helios.FsCheck.Tests.Buffers
 
             var interleavedBehavior = Prop.ForAll<BufferOperations.IWrite[], BufferSize>((writes, size) =>
             {
-                var writeStages = BufferHelpers.ChunkOps(writes.ToList(), 4);
+                var writeStages = HeliosModelHelpers.ChunkOps(writes.ToList(), 4);
                 var expectedValues = writes.Select(x => x.UntypedData).ToList();
                 var buffer = allocator.Buffer(size.InitialSize, size.MaxSize);
                 var actualValues = new List<object>();
