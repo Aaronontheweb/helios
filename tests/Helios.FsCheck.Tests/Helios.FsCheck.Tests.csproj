@@ -80,6 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Helios.Tests\Channels\IntCodec.cs">
+      <Link>Channels\Sockets\IntCodec.cs</Link>
+    </Compile>
     <Compile Include="Buffers\BufferGenerators.cs" />
     <Compile Include="Buffers\BufferHelpers.cs" />
     <Compile Include="Buffers\BufferSpecs.cs" />
@@ -87,6 +90,12 @@
     <Compile Include="Channels\ChannelPipelineInvocationSpecs.cs" />
     <Compile Include="Channels\ChannelPipelineModels.cs" />
     <Compile Include="Channels\ChannelPipelineConstructionSpecs.cs" />
+    <Compile Include="Channels\Sockets\ConcurrentTcpServerSocketModel.cs" />
+    <Compile Include="Channels\Sockets\ConnectionState.cs" />
+    <Compile Include="Channels\Sockets\TcpClientSocketModel.cs" />
+    <Compile Include="Channels\Sockets\ITcpServerSocketModel.cs" />
+    <Compile Include="Channels\Sockets\TcpClientSocketStateHandler.cs" />
+    <Compile Include="Channels\Sockets\TcpServerSocketStateHandler.cs" />
     <Compile Include="FsharpDelegateHelper.cs" />
     <Compile Include="Channels\TestChannel.cs" />
     <Compile Include="Codecs\EncodingGenerators.cs" />
@@ -109,9 +118,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Channels\Sockets\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
