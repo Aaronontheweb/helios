@@ -5,7 +5,7 @@ namespace Helios.FsCheck.Tests
 {
     public static class HeliosModelHelpers
     {
-        public static List<List<T>> ChunkOps<T>(List<T> source, int chunkSize)
+        public static List<List<T>> Chunk<T>(this List<T> source, int chunkSize)
         {
             var list = new List<List<T>>();
             for (var i = 0; i < source.Count; i = i + chunkSize)

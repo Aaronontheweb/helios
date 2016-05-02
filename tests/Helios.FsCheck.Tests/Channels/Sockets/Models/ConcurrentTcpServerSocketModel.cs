@@ -13,6 +13,8 @@ namespace Helios.FsCheck.Tests.Channels.Sockets.Models
     /// </summary>
     public sealed class ConcurrentTcpServerSocketModel : ITcpServerSocketModel
     {
+        public ConcurrentTcpServerSocketModel() : this(null) { }
+
         public ConcurrentTcpServerSocketModel(IChannel self)
         {
             Self = self;
@@ -93,6 +95,12 @@ namespace Helios.FsCheck.Tests.Channels.Sockets.Models
             foreach(var message in messages)
                 _receivedMessages.Add(message);
             return this;
+        }
+
+        public override string ToString()
+        {
+            return
+                $"TcpServerState(BoundAddress={BoundAddress}, Active={Self?.IsActive ?? false} RemoteConnections=[{string.Join("|", RemoteClients)}], Written=[{string.Join(",", WrittenMessages)}], Received=[{string.Join(",", LastReceivedMessages)}])";
         }
     }
 }

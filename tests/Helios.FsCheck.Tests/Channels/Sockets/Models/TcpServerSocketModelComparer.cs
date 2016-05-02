@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 
-namespace Helios.FsCheck.Tests.Channels.Sockets
+namespace Helios.FsCheck.Tests.Channels.Sockets.Models
 {
     /// <summary>
     /// <see cref="IEqualityComparer{T}"/> that verifies that any two <see cref="ITcpServerSocketModel"/> are equivalent, regardless of the

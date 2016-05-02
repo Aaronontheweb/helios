@@ -24,18 +24,32 @@ namespace Helios.FsCheck.Tests.Channels.Sockets.Models
             LastReceivedMessages = lastReceivedMessages;
             WrittenMessages = writtenMessages;
             LocalChannels = localChannels;
+            BoundAddress = Self?.LocalAddress as IPEndPoint;
         }
 
-        public IPEndPoint BoundAddress => (IPEndPoint) Self?.LocalAddress;
-        public IChannel Self { get; }
+        public IPEndPoint BoundAddress { get; private set; }
+        public IChannel Self { get; private set; }
         public IReadOnlyList<IChannel> LocalChannels { get; }
         public IReadOnlyList<IPEndPoint> RemoteClients { get; }
         public IReadOnlyList<int> LastReceivedMessages { get; }
         public IReadOnlyList<int> WrittenMessages { get; }
 
+
+        /// <summary>
+        /// MUTABLE, due to weird setup issue on bind.
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
         public ITcpServerSocketModel SetSelf(IChannel self)
         {
-            return new ImmutableTcpServerSocketModel(self, RemoteClients, LastReceivedMessages, WrittenMessages, LocalChannels);
+            Self = self;
+            return this;
+        }
+
+        public ITcpServerSocketModel SetOwnAddress(IPEndPoint endpoint)
+        {
+            BoundAddress = endpoint;
+            return this;
         }
 
         public ITcpServerSocketModel AddLocalChannel(IChannel channel)
@@ -71,6 +85,12 @@ namespace Helios.FsCheck.Tests.Channels.Sockets.Models
         public ITcpServerSocketModel ReceiveMessages(params int[] messages)
         {
             return new ImmutableTcpServerSocketModel(Self, RemoteClients, LastReceivedMessages.Concat(messages).ToList(), WrittenMessages, LocalChannels);
+        }
+
+        public override string ToString()
+        {
+            return
+                $"TcpServerState(BoundAddress={BoundAddress}, Active={Self?.IsActive ?? false} RemoteConnections=[{string.Join("|", RemoteClients)}], Written=[{string.Join(",", WrittenMessages)}], Received=[{string.Join(",", LastReceivedMessages)}])";
         }
     }
 }
