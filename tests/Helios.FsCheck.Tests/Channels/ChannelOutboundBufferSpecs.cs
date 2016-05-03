@@ -29,7 +29,6 @@ namespace Helios.FsCheck.Tests.Channels
             Arb.Register<BufferGenerators>();
         }
 
-        [Property(QuietOnSuccess = true, MaxTest = 10000)]
         public Property ChannelOutboundBuffer_must_always_correctly_report_writability_and_PendingBytes(IByteBuf[] writes)
         {
             bool writeable = true;
@@ -89,7 +88,6 @@ namespace Helios.FsCheck.Tests.Channels
             return true.ToProperty();
         }
 
-        [Property(QuietOnSuccess = true, StartSize = 2, MaxTest = 5000)]
         public Property ChannelOutboundBuffer_must_always_process_pending_writes_in_FIFO_order(IByteBuf[] writes)
         {
             if (writes.Length == 0) // skip any zero-length results
@@ -124,7 +122,6 @@ namespace Helios.FsCheck.Tests.Channels
             return true.ToProperty();
         }
 
-        [Property(QuietOnSuccess = true, MaxTest = 10000)]
         public Property ChannelOutboundBuffer_must_complete_all_promises_successfully_on_read_regardless_of_flush_order(IByteBuf[] writes)
         {
             var tasks = new List<Task>();
@@ -173,7 +170,6 @@ namespace Helios.FsCheck.Tests.Channels
             }
         }
 
-        [Property(QuietOnSuccess = true)]
         public Property ChannelOutboundBuffer_must_dump_all_flushed_messages_upon_failure(IByteBuf[] writes)
         {
             var tasks = new List<Task>();

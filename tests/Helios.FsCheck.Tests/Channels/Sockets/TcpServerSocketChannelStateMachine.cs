@@ -12,9 +12,11 @@ using Helios.Channels;
 using Helios.Channels.Bootstrap;
 using Helios.Channels.Sockets;
 using Helios.Codecs;
+using Helios.Concurrency;
 using Helios.FsCheck.Tests.Channels.Sockets.Models;
 using Helios.Tests.Channels;
 using Helios.Util;
+using Helios.Util.Concurrency;
 using static Helios.FsCheck.Tests.HeliosModelHelpers;
 
 namespace Helios.FsCheck.Tests.Channels.Sockets
@@ -38,7 +40,9 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
                     Gen.Fresh(
                         () => (Setup<ITcpServerSocketModel, ITcpServerSocketModel>) new TcpServerSocketChannelSetup()));
 
-        #region Setup
+        public override TearDown<ITcpServerSocketModel> TearDown => new ShutdownChannels();
+
+        #region Setup and TearDown
 
         /// <summary>
         /// We don't perform any actual work on the channel here - that's performed inside separate commands
@@ -55,6 +59,34 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
             {
                 return new ImmutableTcpServerSocketModel();
                 
+            }
+        }
+
+        public class ShutdownChannels : TearDown<ITcpServerSocketModel>
+        {
+            public override void Actual(ITcpServerSocketModel _arg1)
+            {
+                if (_arg1.LocalChannels.Count > 0)
+                {
+                    var server = _arg1.LocalChannels[0].Parent as IServerChannel;
+                    var serverEventLoop = server?.EventLoop;
+                    var clientEventLoop = _arg1.LocalChannels[0].EventLoop;
+                    var clientCloses = new List<Task>();
+                    foreach (var client in _arg1.LocalChannels)
+                        clientCloses.Add(client.CloseAsync());
+                    var closeChannels = Task.WhenAll(clientCloses).ContinueWith(tr =>
+                    {
+                        if (server != null)
+                        {
+                            return server.CloseAsync();
+                        }
+                        return TaskEx.Completed;
+                    });
+
+                    closeChannels.Wait();
+                    Task.WaitAll(clientEventLoop.GracefulShutdownAsync(), serverEventLoop?.GracefulShutdownAsync());
+                }
+            
             }
         }
 

@@ -32,7 +32,7 @@ namespace Helios.FsCheck.Tests.Channels
             return Model.ToProperty();
         }
 
-        [Property)]
+        [Property()]
         public Property AllEventsChannelHandler_should_correctly_report_all_supported_events(SupportedEvent[] events)
         {
             var handler = new AllEventsChannelHandler("foo", events);

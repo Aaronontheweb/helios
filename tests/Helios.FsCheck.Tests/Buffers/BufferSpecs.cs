@@ -108,7 +108,7 @@ namespace Helios.FsCheck.Tests.Buffers
             swappedWritesCanBeSwappedBack.QuickCheckThrowOnFailure();
         }
 
-        [Property(QuietOnSuccess = true)]
+        [Property()]
         public Property Buffer_should_be_able_to_WriteZero_for_sizes_within_MaxCapacity(BufferSize initialSize, int length)
         {
             var buffer = UnpooledByteBufAllocator.Default.Buffer(initialSize.InitialSize, initialSize.MaxSize);

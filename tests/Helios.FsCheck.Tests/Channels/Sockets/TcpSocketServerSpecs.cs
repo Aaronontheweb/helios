@@ -11,7 +11,7 @@ namespace Helios.FsCheck.Tests.Channels.Sockets
         public void TcpSeverSocketChannel_should_obey_model()
         {
             var model = new TcpServerSocketChannelStateMachine();
-            model.ToProperty().Check(new Configuration() { MaxNbOfTest = 1000});
+            model.ToProperty().Check(new Configuration() { MaxNbOfTest = 1000, QuietOnSuccess = false});
         }
     }
 }
